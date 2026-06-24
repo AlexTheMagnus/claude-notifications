@@ -78,20 +78,24 @@ play_sound() {
     return 1
   fi
 
-  # Linux: a custom file uses file players...
-  if [ -n "$custom_sound" ] && [ -f "$custom_sound" ]; then
-    if has paplay; then paplay "$custom_sound" >/dev/null 2>&1 & return 0; fi
-    if has pw-play; then pw-play "$custom_sound" >/dev/null 2>&1 & return 0; fi
-    if has canberra-gtk-play; then canberra-gtk-play -f "$custom_sound" >/dev/null 2>&1 & return 0; fi
+  # Linux: play an actual sound file — the custom one if provided, otherwise the
+  # freedesktop theme file. Playing the file (not the theme event name) keeps the
+  # exact same sound on every machine, independent of the active desktop sound
+  # theme. The player chain works on both PulseAudio and PipeWire desktops;
+  # `canberra-gtk-play -f` plays a specific file regardless of theme.
+  local file="$custom_sound"
+  [ -n "$file" ] && [ ! -f "$file" ] && file=""
+  [ -z "$file" ] && [ -f "$linux_default" ] && file="$linux_default"
+
+  if [ -n "$file" ]; then
+    if has paplay; then paplay "$file" >/dev/null 2>&1 & return 0; fi
+    if has pw-play; then pw-play "$file" >/dev/null 2>&1 & return 0; fi
+    if has canberra-gtk-play; then canberra-gtk-play -f "$file" >/dev/null 2>&1 & return 0; fi
   fi
 
-  # ...otherwise the system sound. Prefer the theme name (no hardcoded path,
-  # works on both PulseAudio and PipeWire desktops), then fall back to paths.
+  # Last resort (e.g. minimal systems without the freedesktop sound files): play
+  # the named theme event sound. This may differ from the freedesktop sound.
   if has canberra-gtk-play; then canberra-gtk-play -i "$theme_name" >/dev/null 2>&1 & return 0; fi
-  if [ -f "$linux_default" ]; then
-    if has paplay; then paplay "$linux_default" >/dev/null 2>&1 & return 0; fi
-    if has pw-play; then pw-play "$linux_default" >/dev/null 2>&1 & return 0; fi
-  fi
   return 1
 }
 

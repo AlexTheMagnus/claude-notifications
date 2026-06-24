@@ -10,7 +10,7 @@
       "name": "notifications",
       "source": "./plugins/notifications",
       "description": "Plays a sound and shows a desktop notification on the Notification and Stop hook events. Works on Linux and macOS.",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "author": {
         "name": "Alex Luque"
       },

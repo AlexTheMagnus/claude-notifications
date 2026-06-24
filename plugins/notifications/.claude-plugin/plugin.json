@@ -1,7 +1,7 @@
 {
   "name": "notifications",
   "description": "Sound + desktop notifications when Claude Code needs your attention or finishes a task (Linux & macOS).",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": {
     "name": "Alex Luque",
     "email": "alexluque@genially.com"

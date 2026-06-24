@@ -25,19 +25,20 @@ Restart the session (or run `/plugin`) and you're done.
 
 **Linux**
 - `notify-send` (package `libnotify-bin` on Debian/Ubuntu) for the desktop notification.
-- An audio player for the sound. The script tries, in order, `canberra-gtk-play`
-  (package `libcanberra-gtk-module` / `libcanberra-gtk3-module`), then `paplay`
-  (`pulseaudio-utils`), then `pw-play` (`pipewire`). `canberra-gtk-play` is the most
-  portable: it ships on virtually every GTK/GNOME desktop and works on both PulseAudio and
-  PipeWire, so the default sound usually works out of the box on Ubuntu, Mint, Debian and
-  Fedora desktops.
-- The freedesktop sound theme provides the default sounds (`bell` / `complete`). It comes
-  installed on GTK/GNOME desktops as a dependency of `libcanberra`.
+- An audio player for the sound. The default sounds are the freedesktop theme **files**
+  (`bell.oga` / `complete.oga`), played as-is so they sound the same on every machine. The
+  script tries, in order, `paplay` (`pulseaudio-utils`), then `pw-play` (`pipewire`), then
+  `canberra-gtk-play -f` (`libcanberra-gtk-module` / `libcanberra-gtk3-module`). At least one
+  of these ships on virtually every GTK/GNOME desktop, on both PulseAudio and PipeWire.
+- The freedesktop sound theme provides those default files. It comes installed on GTK/GNOME
+  desktops as a dependency of `libcanberra`.
 
 > Note on Fedora and other PipeWire-based distros: `paplay` is often **not** installed by
-> default there, which is why `canberra-gtk-play` is preferred. On a minimal/server/WSL/Docker
-> environment with no desktop you may have neither — the plugin will then warn you once (see
-> [Troubleshooting](#troubleshooting)).
+> default there, but `pw-play` and `canberra-gtk-play` are — so the default sound still
+> works. On a minimal/server/WSL/Docker environment with no desktop you may have none of them,
+> and no sound files either; the plugin then warns you once (see
+> [Troubleshooting](#troubleshooting)) and, if any theme is present, falls back to the named
+> theme sound.
 
 **macOS**
 - Nothing extra — uses the built-in `afplay` and `osascript`.
