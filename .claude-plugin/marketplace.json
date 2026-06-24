@@ -1,0 +1,20 @@
+{
+  "name": "claude-notifications",
+  "owner": {
+    "name": "Alex Luque",
+    "email": "alexluque@genially.com"
+  },
+  "description": "Sound + desktop notifications when Claude Code needs your attention or finishes a task.",
+  "plugins": [
+    {
+      "name": "notifications",
+      "source": "./plugins/notifications",
+      "description": "Plays a sound and shows a desktop notification on the Notification and Stop hook events. Works on Linux and macOS.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Alex Luque"
+      },
+      "license": "MIT"
+    }
+  ]
+}
