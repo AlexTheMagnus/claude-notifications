@@ -21,5 +21,10 @@ notifications/
 `hooks.json` invokes `scripts/notify.sh` via `${CLAUDE_PLUGIN_ROOT}`, so it works
 regardless of where the plugin is installed.
 
-See the [marketplace README](../../README.md) for install instructions, requirements, and
-how to customize the notification text.
+## Custom sounds
+
+Sounds are resolved as **environment variable → drop-in file → system sound**, e.g.
+`export CLAUDE_NOTIFY_STOP_SOUND=~/sounds/done.oga` or dropping
+`~/.config/claude-notifications/stop.oga`. See the
+[marketplace README](../../README.md#custom-sounds) for the full list of options,
+requirements per distro, and troubleshooting.
